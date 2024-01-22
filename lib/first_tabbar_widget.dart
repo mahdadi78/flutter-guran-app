@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ghoran_app/const.dart';
 import 'package:ghoran_app/main.dart';
+import 'package:ghoran_app/sureh_page.dart';
 
 class FirstTabBarViewWidget extends StatelessWidget {
   const FirstTabBarViewWidget({
@@ -27,10 +29,16 @@ class FirstTabBarViewWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: ListTile(
-                  leading: _leading(index),
-                  title: _title(index),
-                  trailing: _trailing(index),
+                child: InkWell(
+                  splashColor: color1.withOpacity(.3),
+                  onTap: () {
+                    Get.to(const SurehPage());
+                  },
+                  child: ListTile(
+                    leading: _leading(index),
+                    title: _title(index),
+                    trailing: _trailing(index),
+                  ),
                 ),
               );
             },

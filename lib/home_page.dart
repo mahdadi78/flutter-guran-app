@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ghoran_app/const.dart';
 import 'package:ghoran_app/first_tabbar_widget.dart';
-import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/second_tabbar_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
     super.initState();
   }
 
