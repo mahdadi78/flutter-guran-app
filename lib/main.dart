@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SurehPage(),
+      home: SurehPage(
+        index: 0,
+      ),
     );
   }
 }

@@ -11,7 +11,7 @@ class MyController extends GetxController {
   //todo لیست سوره ها گرفته میشود
   Future<List<Data>> getSurah() async {
     //! delete this FUture  later...
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     List<Data> myListOFSurahs = [];
     isLoading(true);
     try {

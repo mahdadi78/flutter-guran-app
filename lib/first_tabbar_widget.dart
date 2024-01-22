@@ -32,7 +32,9 @@ class FirstTabBarViewWidget extends StatelessWidget {
                 child: InkWell(
                   splashColor: color1.withOpacity(.3),
                   onTap: () {
-                    Get.to(const SurehPage());
+                    Get.to(SurehPage(
+                      index: index,
+                    ));
                   },
                   child: ListTile(
                     leading: _leading(index),
