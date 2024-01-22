@@ -11,7 +11,16 @@ class FirstTabBarViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => controller.isLoading.value
         ? const Center(
-            child: CircularProgressIndicator(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('loading...'),
+                CircularProgressIndicator(
+                  color: color1,
+                  strokeWidth: 1,
+                )
+              ],
+            ),
           )
         : ListView.builder(
             itemCount: controller.futureSurahs.length,
@@ -21,17 +30,21 @@ class FirstTabBarViewWidget extends StatelessWidget {
                 child: ListTile(
                   leading: _leading(index),
                   title: _title(index),
-                  trailing: Text(
-                    '${controller.futureSurahs[index].numberOfAyahs} Ayah',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: color1.withOpacity(.5),
-                    ),
-                  ),
+                  trailing: _trailing(index),
                 ),
               );
             },
           ));
+  }
+
+  Text _trailing(int index) {
+    return Text(
+      '${controller.futureSurahs[index].numberOfAyahs} Ayah',
+      style: TextStyle(
+        fontSize: 12,
+        color: color1.withOpacity(.5),
+      ),
+    );
   }
 
   Column _title(int index) {
