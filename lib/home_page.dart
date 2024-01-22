@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ghoran_app/first_tabbar_widget.dart';
 import 'package:ghoran_app/main.dart';
-import 'package:ghoran_app/models/second_tabbar_widget.dart';
+import 'package:ghoran_app/second_tabbar_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,59 +32,63 @@ class _HomePageState extends State<HomePage>
       body: Column(
         children: [
           bannerWidget(context),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  // give the tab bar a height [can change hheight to preferred height]
-                  Container(
-                    height: 45,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(
-                        25.0,
-                      ),
-                    ),
-                    child: TabBar(
-                      controller: _tabController,
-                      // give the indicator a decoration (color and border radius)
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          25.0,
-                        ),
-                        color: color1,
-                      ),
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.black,
-                      tabs: const [
-                        // first tab [you can add an icon using the icon property]
-                        Tab(
-                          text: 'سوره ها',
-                        ),
+          tabBarView(),
+        ],
+      ),
+    );
+  }
 
-                        // second tab [you can add an icon using the icon property]
-                        Tab(
-                          text: 'جزءها',
-                        ),
-                      ],
-                    ),
+  Widget tabBarView() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            // give the tab bar a height [can change hheight to preferred height]
+            Container(
+              height: 45,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(
+                  25.0,
+                ),
+              ),
+              child: TabBar(
+                controller: _tabController,
+                // give the indicator a decoration (color and border radius)
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    25.0,
                   ),
-                  // tab bar view here
-                  Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: const [
-                        FirstTabBarViewWidget(),
-                        SecondTabBarViewWidget(),
-                      ],
-                    ),
+                  color: color1,
+                ),
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.black,
+                tabs: const [
+                  // first tab [you can add an icon using the icon property]
+                  Tab(
+                    text: 'سوره ها',
+                  ),
+
+                  // second tab [you can add an icon using the icon property]
+                  Tab(
+                    text: 'جزءها',
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            // tab bar view here
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: const [
+                  FirstTabBarViewWidget(),
+                  SecondTabBarViewWidget(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
