@@ -72,6 +72,7 @@ class SurehPage extends StatelessWidget {
 
   SliverAppBar _sliverAppBar() {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
       onStretchTrigger: () async {
         // Triggers when stretching

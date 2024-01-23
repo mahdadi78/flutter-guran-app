@@ -1,7 +1,7 @@
 class SurahModel {
   int? code;
   String? status;
-  List<Data>? data;
+  List<DataS>? data;
 
   SurahModel({this.code, this.status, this.data});
 
@@ -9,9 +9,9 @@ class SurahModel {
     code = json['code'];
     status = json['status'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataS>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(DataS.fromJson(v));
       });
     }
   }
@@ -27,7 +27,7 @@ class SurahModel {
   }
 }
 
-class Data {
+class DataS {
   int? number;
   String? name;
   String? englishName;
@@ -35,7 +35,7 @@ class Data {
   int? numberOfAyahs;
   String? revelationType;
 
-  Data(
+  DataS(
       {this.number,
       this.name,
       this.englishName,
@@ -43,7 +43,7 @@ class Data {
       this.numberOfAyahs,
       this.revelationType});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataS.fromJson(Map<String, dynamic> json) {
     number = json['number'];
     name = json['name'];
     englishName = json['englishName'];
