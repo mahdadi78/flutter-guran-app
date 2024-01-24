@@ -1,5 +1,5 @@
+// ignore: file_names
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:ghoran_app/models/ayas_model.dart';
 import 'package:http/http.dart' as http;
@@ -7,12 +7,12 @@ import 'package:http/http.dart' as http;
 class TestController extends GetxController {
   late int numbersurah;
 
-  Future<List<Ayahs>> getHAMD() async {
+  Future<List<Ayahs>> getSurah(int nS) async {
     List<Ayahs> myAlbumList = [];
 
     // https://api.alquran.cloud/v1/surah/1
     var response =
-        await http.get(Uri.https('api.alquran.cloud', '/v1/surah/2'));
+        await http.get(Uri.https('api.alquran.cloud', '/v1/surah/$nS'));
     var jsonData = jsonDecode(response.body);
 
     for (var eachListOfAyah in jsonData['data'][

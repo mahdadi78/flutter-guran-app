@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ghoran_app/const.dart';
 import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/models/ayas_model.dart';
@@ -19,7 +18,9 @@ class _SurehPageState extends State<SurehPage> {
   @override
   void initState() {
     super.initState();
-    TestController().getHAMD().then((value) => futurePhotos = value);
+    TestController()
+        .getSurah(widget.index)
+        .then((value) => futurePhotos = value);
   }
 
   @override
@@ -52,14 +53,16 @@ class _SurehPageState extends State<SurehPage> {
                 }),
           ),
           body: FutureBuilder(
-            future: TestController().getHAMD(),
+            future: TestController().getSurah(widget.index),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Center(
+                return _customScrollView();
+              } else if (snapshot.hasError) {
+                Center(
                     child: Text(
-                  futurePhotos[20].text!,
+                  snapshot.error.toString(),
                 ));
-              } else if (snapshot.hasError) {}
+              }
               return const Center(
                   child: Text(
                 "loading...",
@@ -72,9 +75,7 @@ class _SurehPageState extends State<SurehPage> {
   CustomScrollView _customScrollView() {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
-      slivers: <Widget>[
-        _sliverAppBar(),
-      ],
+      slivers: <Widget>[_sliverAppBar(), _sliverList()],
     );
   }
 
@@ -83,9 +84,77 @@ class _SurehPageState extends State<SurehPage> {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int i) {
           //!---------------------------------------------------------------------------------------
-          return const Text('');
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Text(
+                                futurePhotos[i].number.toString(),
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: color1,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              const Icon(
+                                Icons.circle_outlined,
+                                size: 43,
+                                color: color1,
+                              )
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: Text(
+                                futurePhotos[i].text!,
+                                style: const TextStyle(
+                                    color: color1,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 15),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: Text(
+                                futurePhotos[i].text!,
+                                style: const TextStyle(
+                                    color: color1,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.more_horiz,
+                        color: Colors.black45,
+                      ))
+                ],
+              ),
+            ),
+          );
         },
-        childCount: controller.futureSurahs[widget.index].numberOfAyahs,
+        childCount: futurePhotos.length,
       ),
     );
   }
@@ -127,7 +196,7 @@ class _SurehPageState extends State<SurehPage> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 30),
             child: Text(
-              controller.futureSurahs[widget.index].englishNameTranslation
+              controller.futureSurahs[widget.index - 1].englishNameTranslation
                   .toString(),
               style: const TextStyle(
                   fontSize: 15,
@@ -143,14 +212,15 @@ class _SurehPageState extends State<SurehPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  controller.futureSurahs[widget.index].englishName.toString(),
+                  controller.futureSurahs[widget.index - 1].englishName
+                      .toString(),
                   style: const TextStyle(
                       fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.w900),
                 ),
                 Text(
-                  controller.futureSurahs[widget.index].revelationType
+                  controller.futureSurahs[widget.index - 1].revelationType
                       .toString(),
                   style: const TextStyle(
                       fontSize: 12,

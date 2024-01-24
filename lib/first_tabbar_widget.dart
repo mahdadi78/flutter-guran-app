@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:ghoran_app/const.dart';
 import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/sureh_page.dart';
-import 'package:ghoran_app/controllers/getAyeh_controller.dart';
 
 class FirstTabBarViewWidget extends StatelessWidget {
   const FirstTabBarViewWidget({
@@ -36,7 +35,7 @@ class FirstTabBarViewWidget extends StatelessWidget {
                     //!-----------------------------
 
                     Get.to(SurehPage(
-                      index: index,
+                      index: index + 1,
                     ));
                   },
                   child: ListTile(

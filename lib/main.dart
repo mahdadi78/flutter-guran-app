@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghoran_app/controllers/my_controller.dart';
 import 'package:ghoran_app/home_page.dart';
-import 'package:ghoran_app/sureh_page.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
