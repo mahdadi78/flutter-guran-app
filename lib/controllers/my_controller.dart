@@ -9,8 +9,7 @@ class MyController extends GetxController {
   var futureSurahs = <DataS>[].obs;
   var isLoading = true.obs;
 
-  var futureAyas = <Ayahs>[].obs;
-  var isLoadingAyas = true.obs;
+  var futureAyasPerSureh = <Ayahs>[];
 
   //todo لیست سوره ها گرفته میشود
   Future<List<DataS>> getSurah() async {
@@ -44,34 +43,34 @@ class MyController extends GetxController {
   //todo   شماره سوره ارسال باید بشه ،در نهایت آیه ها دریافت میشود
   Future<List<Ayahs>> getAyas(int numberSurah) async {
     List<Ayahs> myListOFAyahs = [];
-    isLoadingAyas(true);
-    try {
-      // https://api.alquran.cloud/v1/surah/$numberSurah
-      var response = await http
-          .get(Uri.https('api.alquran.cloud', '/v1/surah/$numberSurah'));
-      var jsonData = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        for (var eachListOfAyah in jsonData['data'][
-            'ayahs'] /*['data']      For more complex APIs, this section is used*/) {
-          final myphoto = Ayahs(
-            number: eachListOfAyah['number'],
-            text: eachListOfAyah['text'],
-            numberInSurah: eachListOfAyah['numberInSurah'],
-            juz: eachListOfAyah['juz'],
-            manzil: eachListOfAyah['manzil'],
-            page: eachListOfAyah['page'],
-            ruku: eachListOfAyah['ruku'],
-            hizbQuarter: eachListOfAyah['hizbQuarter'],
-            sajda: eachListOfAyah['sajda'],
-          );
-          eachListOfAyah.add(myphoto);
-        }
+
+    // https://api.alquran.cloud/v1/surah/$numberSurah
+    var response = await http
+        .get(Uri.https('api.alquran.cloud', '/v1/surah/$numberSurah'));
+    var jsonData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      for (var eachListOfAyah in jsonData['data'][
+          'ayahs'] /*['data']      For more complex APIs, this section is used*/) {
+        final myphoto = Ayahs(
+          number: eachListOfAyah['number'],
+          text: eachListOfAyah['text'],
+          numberInSurah: eachListOfAyah['numberInSurah'],
+          juz: eachListOfAyah['juz'],
+          manzil: eachListOfAyah['manzil'],
+          page: eachListOfAyah['page'],
+          ruku: eachListOfAyah['ruku'],
+          hizbQuarter: eachListOfAyah['hizbQuarter'],
+          sajda: eachListOfAyah['sajda'],
+        );
+        eachListOfAyah.add(myphoto);
       }
-    } finally {
-      isLoadingAyas(false);
     }
 
     return myListOFAyahs;
+  }
+
+  Future fetchListOfAyas(int index) async {
+    getAyas(index).then((value) => futureAyasPerSureh = value);
   }
 
   @override

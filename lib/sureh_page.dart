@@ -2,51 +2,71 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghoran_app/const.dart';
 import 'package:ghoran_app/main.dart';
+import 'package:ghoran_app/models/ayas_model.dart';
+import 'package:ghoran_app/controllers/getAyeh_controller.dart';
 
-class SurehPage extends StatelessWidget {
+class SurehPage extends StatefulWidget {
   final int index;
   const SurehPage({super.key, required this.index});
 
   @override
+  State<SurehPage> createState() => _SurehPageState();
+}
+
+class _SurehPageState extends State<SurehPage> {
+  late List<Ayahs> futurePhotos;
+
+  @override
+  void initState() {
+    super.initState();
+    TestController().getHAMD().then((value) => futurePhotos = value);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const SizedBox(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          child: Image(
-            fit: BoxFit.cover,
-            image: AssetImage(
-              'images/bg.jpg',
-            ),
+    return Stack(children: [
+      const SizedBox(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        child: Image(
+          fit: BoxFit.cover,
+          image: AssetImage(
+            'images/bg.jpg',
           ),
         ),
-        Obx(
-          () => controller.isLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Scaffold(
-                  backgroundColor: Colors.transparent,
-                  appBar: AppBar(
-                    centerTitle: true,
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    automaticallyImplyLeading: false,
-                    leading: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_ios_sharp,
-                          color: Colors.black54,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
-                  ),
-                  body: _customScrollView(),
+      ),
+      Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_sharp,
+                  color: Colors.black54,
                 ),
-        ),
-      ],
-    );
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ),
+          body: FutureBuilder(
+            future: TestController().getHAMD(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Center(
+                    child: Text(
+                  futurePhotos[20].text!,
+                ));
+              } else if (snapshot.hasError) {}
+              return const Center(
+                  child: Text(
+                "loading...",
+              ));
+            },
+          )),
+    ]);
   }
 
   CustomScrollView _customScrollView() {
@@ -54,7 +74,6 @@ class SurehPage extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       slivers: <Widget>[
         _sliverAppBar(),
-        _sliverList(),
       ],
     );
   }
@@ -63,9 +82,10 @@ class SurehPage extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int i) {
-          return Text('آیه ${i + 1}');
+          //!---------------------------------------------------------------------------------------
+          return const Text('');
         },
-        childCount: controller.futureSurahs[index].numberOfAyahs,
+        childCount: controller.futureSurahs[widget.index].numberOfAyahs,
       ),
     );
   }
@@ -107,7 +127,8 @@ class SurehPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 30),
             child: Text(
-              controller.futureSurahs[index].englishNameTranslation.toString(),
+              controller.futureSurahs[widget.index].englishNameTranslation
+                  .toString(),
               style: const TextStyle(
                   fontSize: 15,
                   color: Colors.white,
@@ -122,14 +143,15 @@ class SurehPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  controller.futureSurahs[index].englishName.toString(),
+                  controller.futureSurahs[widget.index].englishName.toString(),
                   style: const TextStyle(
                       fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.w900),
                 ),
                 Text(
-                  controller.futureSurahs[index].revelationType.toString(),
+                  controller.futureSurahs[widget.index].revelationType
+                      .toString(),
                   style: const TextStyle(
                       fontSize: 12,
                       color: Colors.white,

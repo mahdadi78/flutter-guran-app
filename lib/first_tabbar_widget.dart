@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ghoran_app/const.dart';
 import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/sureh_page.dart';
+import 'package:ghoran_app/controllers/getAyeh_controller.dart';
 
 class FirstTabBarViewWidget extends StatelessWidget {
   const FirstTabBarViewWidget({
@@ -32,6 +33,8 @@ class FirstTabBarViewWidget extends StatelessWidget {
                 child: InkWell(
                   splashColor: color1.withOpacity(.3),
                   onTap: () {
+                    //!-----------------------------
+
                     Get.to(SurehPage(
                       index: index,
                     ));
