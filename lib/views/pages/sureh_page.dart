@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ghoran_app/const.dart';
+import 'package:ghoran_app/consts/const.dart';
 import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/models/ayas_model.dart';
 import 'package:ghoran_app/controllers/getAyeh_controller.dart';

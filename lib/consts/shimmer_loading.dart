@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ghoran_app/const.dart';
+import 'package:ghoran_app/consts/const.dart';
 
 class ShimmerLoading extends StatefulWidget {
   const ShimmerLoading({

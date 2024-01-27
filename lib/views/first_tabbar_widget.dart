@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ghoran_app/const.dart';
+import 'package:ghoran_app/consts/const.dart';
 import 'package:ghoran_app/main.dart';
-import 'package:ghoran_app/sureh_page.dart';
+import 'package:ghoran_app/views/pages/sureh_page.dart';
 
 class FirstTabBarViewWidget extends StatelessWidget {
   const FirstTabBarViewWidget({
@@ -32,8 +32,6 @@ class FirstTabBarViewWidget extends StatelessWidget {
                 child: InkWell(
                   splashColor: color1.withOpacity(.3),
                   onTap: () {
-                    //!-----------------------------
-
                     Get.to(SurehPage(
                       index: index + 1,
                     ));
