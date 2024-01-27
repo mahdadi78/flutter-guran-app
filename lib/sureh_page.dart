@@ -18,7 +18,7 @@ class _SurehPageState extends State<SurehPage> {
   @override
   void initState() {
     super.initState();
-    TestController()
+    AyahController()
         .getSurah(widget.index)
         .then((value) => futurePhotos = value);
   }
@@ -53,7 +53,7 @@ class _SurehPageState extends State<SurehPage> {
                 }),
           ),
           body: FutureBuilder(
-            future: TestController().getSurah(widget.index),
+            future: AyahController().getSurah(widget.index),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return _customScrollView();

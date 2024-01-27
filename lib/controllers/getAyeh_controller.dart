@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:ghoran_app/models/ayas_model.dart';
 import 'package:http/http.dart' as http;
 
-class TestController extends GetxController {
+class AyahController extends GetxController {
   late int numbersurah;
 
   Future<List<Ayahs>> getSurah(int nS) async {
