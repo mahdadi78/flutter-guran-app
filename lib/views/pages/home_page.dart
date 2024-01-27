@@ -67,12 +67,12 @@ class _HomePageState extends State<HomePage>
                 tabs: const [
                   // first tab [you can add an icon using the icon property]
                   Tab(
-                    text: 'سوره ها',
+                    text: 'Surahs',
                   ),
 
                   // second tab [you can add an icon using the icon property]
                   Tab(
-                    text: 'جزءها',
+                    text: 'Joz',
                   ),
                 ],
               ),

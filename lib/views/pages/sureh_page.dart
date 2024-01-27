@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ghoran_app/consts/const.dart';
+import 'package:ghoran_app/controllers/get_eng_tran_controller.dart';
 import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/models/ayas_model.dart';
 import 'package:ghoran_app/controllers/getAyeh_controller.dart';
+import 'package:ghoran_app/models/translator_model.dart';
 
 class SurehPage extends StatefulWidget {
   final int index;
@@ -13,14 +15,17 @@ class SurehPage extends StatefulWidget {
 }
 
 class _SurehPageState extends State<SurehPage> {
-  late List<Ayahs> futurePhotos;
-
+  late List<Ayahs> futureAyahs;
+  late List<TAyahs> futureTAyahs;
   @override
   void initState() {
     super.initState();
     AyahController()
         .getSurah(widget.index)
-        .then((value) => futurePhotos = value);
+        .then((value) => futureAyahs = value);
+    GetTranslateController()
+        .getSurah(widget.index)
+        .then((value) => futureTAyahs = value);
   }
 
   @override
@@ -53,7 +58,7 @@ class _SurehPageState extends State<SurehPage> {
                 }),
           ),
           body: FutureBuilder(
-            future: AyahController().getSurah(widget.index),
+            future: GetTranslateController().getSurah(widget.index),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return _customScrollView();
@@ -88,6 +93,7 @@ class _SurehPageState extends State<SurehPage> {
             padding: const EdgeInsets.all(10.0),
             child: Card(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
@@ -100,7 +106,7 @@ class _SurehPageState extends State<SurehPage> {
                             alignment: Alignment.center,
                             children: [
                               Text(
-                                futurePhotos[i].number.toString(),
+                                futureAyahs[i].number.toString(),
                                 style: const TextStyle(
                                     fontSize: 16,
                                     color: color1,
@@ -118,7 +124,7 @@ class _SurehPageState extends State<SurehPage> {
                             child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Text(
-                                futurePhotos[i].text!,
+                                futureAyahs[i].text!,
                                 style: const TextStyle(
                                     color: color1,
                                     fontWeight: FontWeight.w900,
@@ -129,13 +135,13 @@ class _SurehPageState extends State<SurehPage> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: Directionality(
-                              textDirection: TextDirection.rtl,
+                              textDirection: TextDirection.ltr,
                               child: Text(
-                                futurePhotos[i].text!,
-                                style: const TextStyle(
-                                    color: color1,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12),
+                                futureTAyahs[i].text!,
+                                style: TextStyle(
+                                    color: color1.withOpacity(.8),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15),
                               ),
                             ),
                           ),
@@ -154,7 +160,7 @@ class _SurehPageState extends State<SurehPage> {
             ),
           );
         },
-        childCount: futurePhotos.length,
+        childCount: futureAyahs.length,
       ),
     );
   }
