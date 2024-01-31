@@ -7,6 +7,7 @@ class GetTranslateController extends GetxController {
   late int numberSurah;
 
   Future<List<TAyahs>> getSurah(int nS) async {
+    // await Future.delayed(const Duration(seconds: 5));//just for test
     List<TAyahs> myAlbumList = [];
 
     // http://api.alquran.cloud/v1/surah/114/en.asad
@@ -25,7 +26,6 @@ class GetTranslateController extends GetxController {
         page: eachListOfAyah['page'],
         ruku: eachListOfAyah['ruku'],
         hizbQuarter: eachListOfAyah['hizbQuarter'],
-        sajda: eachListOfAyah['sajda'],
       );
       myAlbumList.add(myphoto);
     }

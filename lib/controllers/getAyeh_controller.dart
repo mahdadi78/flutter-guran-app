@@ -26,7 +26,6 @@ class AyahController extends GetxController {
         page: eachListOfAyah['page'],
         ruku: eachListOfAyah['ruku'],
         hizbQuarter: eachListOfAyah['hizbQuarter'],
-        sajda: eachListOfAyah['sajda'],
       );
       myAlbumList.add(myphoto);
     }

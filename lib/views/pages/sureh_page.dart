@@ -1,10 +1,17 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ghoran_app/consts/const.dart';
+import 'package:ghoran_app/consts/const.dart';
+import 'package:ghoran_app/consts/const.dart';
+import 'package:ghoran_app/controllers/font_controller.dart';
 import 'package:ghoran_app/controllers/get_eng_tran_controller.dart';
 import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/models/ayas_model.dart';
 import 'package:ghoran_app/controllers/getAyeh_controller.dart';
 import 'package:ghoran_app/models/translator_model.dart';
+import 'package:ghoran_app/views/pages/widget_font_manager.dart';
 
 class SurehPage extends StatefulWidget {
   final int index;
@@ -15,6 +22,8 @@ class SurehPage extends StatefulWidget {
 }
 
 class _SurehPageState extends State<SurehPage> {
+  final controlllerFont = Get.put(FontController());
+  //Get verses from api
   late List<Ayahs> futureAyahs;
   late List<TAyahs> futureTAyahs;
   @override
@@ -31,19 +40,13 @@ class _SurehPageState extends State<SurehPage> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      const SizedBox(
-        width: double.maxFinite,
-        height: double.maxFinite,
-        child: Image(
-          fit: BoxFit.cover,
-          image: AssetImage(
-            'images/bg.jpg',
-          ),
-        ),
-      ),
+      backgroundImage(),
       Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            actions: [
+              FontManager(),
+            ],
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -58,7 +61,7 @@ class _SurehPageState extends State<SurehPage> {
                 }),
           ),
           body: FutureBuilder(
-            future: GetTranslateController().getSurah(widget.index),
+            future: AyahController().getSurah(widget.index),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return _customScrollView();
@@ -68,10 +71,25 @@ class _SurehPageState extends State<SurehPage> {
                   snapshot.error.toString(),
                 ));
               }
-              return const Center(
-                  child: Text(
-                "loading...",
-              ));
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: Text(
+                      "loading...",
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        GetTranslateController().getSurah(widget.index);
+                        AyahController().getSurah(widget.index);
+                      },
+                      icon: const Icon(
+                        Icons.refresh_rounded,
+                        color: color1,
+                      ))
+                ],
+              );
             },
           )),
     ]);
@@ -88,7 +106,6 @@ class _SurehPageState extends State<SurehPage> {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int i) {
-          //!---------------------------------------------------------------------------------------
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: Card(
@@ -106,7 +123,7 @@ class _SurehPageState extends State<SurehPage> {
                             alignment: Alignment.center,
                             children: [
                               Text(
-                                futureAyahs[i].number.toString(),
+                                (i + 1).toString(),
                                 style: const TextStyle(
                                     fontSize: 16,
                                     color: color1,
@@ -122,29 +139,43 @@ class _SurehPageState extends State<SurehPage> {
                           Align(
                             alignment: Alignment.topRight,
                             child: Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Text(
-                                futureAyahs[i].text!,
-                                style: const TextStyle(
-                                    color: color1,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 15),
-                              ),
-                            ),
+                                textDirection: TextDirection.rtl,
+                                child: Obx(
+                                  () => Text(
+                                    futureAyahs[i].text!,
+                                    style: TextStyle(
+                                        color: color1,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: fontSize.value.toDouble()),
+                                  ),
+                                )),
                           ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Directionality(
-                              textDirection: TextDirection.ltr,
-                              child: Text(
-                                futureTAyahs[i].text!,
-                                style: TextStyle(
-                                    color: color1.withOpacity(.8),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ),
+                          FutureBuilder(
+                              future: GetTranslateController()
+                                  .getSurah(widget.index),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Directionality(
+                                      textDirection: TextDirection.ltr,
+                                      child: Text(
+                                        futureTAyahs[i].text!,
+                                        style: TextStyle(
+                                            color: color1.withOpacity(.8),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
+                                      ),
+                                    ),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  // ignore: avoid_print
+                                  print(snapshot.error);
+                                }
+                                return const Text(
+                                  'translation is loading ...',
+                                );
+                              }),
                         ],
                       ),
                     ),

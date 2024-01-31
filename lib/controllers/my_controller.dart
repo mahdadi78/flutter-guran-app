@@ -60,7 +60,6 @@ class MyController extends GetxController {
           page: eachListOfAyah['page'],
           ruku: eachListOfAyah['ruku'],
           hizbQuarter: eachListOfAyah['hizbQuarter'],
-          sajda: eachListOfAyah['sajda'],
         );
         eachListOfAyah.add(myphoto);
       }
