@@ -8,7 +8,7 @@ import 'package:ghoran_app/controllers/font_controller.dart';
 import 'package:ghoran_app/controllers/get_eng_tran_controller.dart';
 import 'package:ghoran_app/main.dart';
 import 'package:ghoran_app/models/ayas_model.dart';
-import 'package:ghoran_app/controllers/getAyeh_controller.dart';
+import 'package:ghoran_app/controllers/getAyeh_perSurah_controller.dart';
 import 'package:ghoran_app/models/translator_model.dart';
 import 'package:ghoran_app/views/pages/widget_font_manager.dart';
 
@@ -140,13 +140,14 @@ class _SurehPageState extends State<SurehPage> {
                             child: Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: Obx(
-                                  () => Text(
-                                    futureAyahs[i].text!,
+                                  () => AnimatedDefaultTextStyle(
+                                    duration: const Duration(milliseconds: 300),
                                     style: TextStyle(
                                         color: color1,
                                         fontWeight: FontWeight.w900,
                                         fontSize:
                                             fontSize_Ara.value.toDouble()),
+                                    child: Text(futureAyahs[i].text!),
                                   ),
                                 )),
                           ),
@@ -160,13 +161,15 @@ class _SurehPageState extends State<SurehPage> {
                                     child: Directionality(
                                       textDirection: TextDirection.ltr,
                                       child: Obx(
-                                        () => Text(
-                                          futureTAyahs[i].text!,
+                                        () => AnimatedDefaultTextStyle(
+                                          duration:
+                                              const Duration(milliseconds: 300),
                                           style: TextStyle(
                                               color: color1.withOpacity(.8),
                                               fontWeight: FontWeight.w500,
                                               fontSize: fontSize_Eng.value
                                                   .toDouble()),
+                                          child: Text(futureTAyahs[i].text!),
                                         ),
                                       ),
                                     ),

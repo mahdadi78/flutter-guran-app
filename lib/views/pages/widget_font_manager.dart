@@ -34,9 +34,10 @@ class FontManager extends StatelessWidget {
     child: Padding(
       padding: const EdgeInsets.all(30.0),
       child: SizedBox(
-        height: 90,
+        height: 120,
         child: Obx(
           () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
@@ -78,6 +79,21 @@ class FontManager extends StatelessWidget {
                       icon: const Icon(
                         Icons.remove,
                         color: color1,
+                      )),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text(
+                    'back to default font size',
+                    style: TextStyle(color: color1),
+                  ),
+                  IconButton(
+                      onPressed: controllerFont.backToDefaultFontSize,
+                      icon: const Icon(
+                        Icons.restore,
+                        color: Colors.black54,
                       )),
                 ],
               ),
