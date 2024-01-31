@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghoran_app/consts/const.dart';
-import 'package:ghoran_app/consts/const.dart';
-import 'package:ghoran_app/consts/const.dart';
+
 import 'package:ghoran_app/controllers/font_controller.dart';
 import 'package:ghoran_app/controllers/get_eng_tran_controller.dart';
 import 'package:ghoran_app/main.dart';
@@ -146,7 +145,8 @@ class _SurehPageState extends State<SurehPage> {
                                     style: TextStyle(
                                         color: color1,
                                         fontWeight: FontWeight.w900,
-                                        fontSize: fontSize.value.toDouble()),
+                                        fontSize:
+                                            fontSize_Ara.value.toDouble()),
                                   ),
                                 )),
                           ),
@@ -159,12 +159,15 @@ class _SurehPageState extends State<SurehPage> {
                                     alignment: Alignment.topLeft,
                                     child: Directionality(
                                       textDirection: TextDirection.ltr,
-                                      child: Text(
-                                        futureTAyahs[i].text!,
-                                        style: TextStyle(
-                                            color: color1.withOpacity(.8),
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15),
+                                      child: Obx(
+                                        () => Text(
+                                          futureTAyahs[i].text!,
+                                          style: TextStyle(
+                                              color: color1.withOpacity(.8),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: fontSize_Eng.value
+                                                  .toDouble()),
+                                        ),
                                       ),
                                     ),
                                   );

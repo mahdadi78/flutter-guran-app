@@ -1,14 +1,22 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:get/get.dart';
 import 'package:ghoran_app/consts/const.dart';
 
 class FontController extends GetxController {
-  increaseFontSize() {
-    fontSize.value++;
-    print('increase clicked ');
+  increaseFontSize_ara() {
+    fontSize_Ara.value++;
   }
 
-  decreaseFontSize() {
-    fontSize.value--;
-    print('decrease clicked');
+  decreaseFontSize_ara() {
+    fontSize_Ara.value--;
+  }
+
+  increaseFontSize_eng() {
+    fontSize_Eng.value++;
+  }
+
+  decreaseFontSize_eng() {
+    fontSize_Eng.value--;
   }
 }

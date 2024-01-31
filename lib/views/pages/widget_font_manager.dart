@@ -33,22 +33,57 @@ class FontManager extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0)), //this right here
     child: Padding(
       padding: const EdgeInsets.all(30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          IconButton(
-              onPressed: controllerFont.increaseFontSize,
-              icon: const Icon(
-                Icons.add,
-                color: color1,
-              )),
-          IconButton(
-              onPressed: controllerFont.decreaseFontSize,
-              icon: const Icon(
-                Icons.remove,
-                color: color1,
-              )),
-        ],
+      child: SizedBox(
+        height: 90,
+        child: Obx(
+          () => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    'English font $fontSize_Eng',
+                    style: const TextStyle(fontSize: 20, color: color1),
+                  ),
+                  IconButton(
+                      onPressed: controllerFont.increaseFontSize_eng,
+                      icon: const Icon(
+                        Icons.add,
+                        color: color1,
+                      )),
+                  IconButton(
+                      onPressed: controllerFont.decreaseFontSize_eng,
+                      icon: const Icon(
+                        Icons.remove,
+                        color: color1,
+                      )),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    'Arabic font $fontSize_Ara',
+                    style: const TextStyle(fontSize: 20, color: color1),
+                  ),
+                  IconButton(
+                      onPressed: controllerFont.increaseFontSize_ara,
+                      icon: const Icon(
+                        Icons.add,
+                        color: color1,
+                      )),
+                  IconButton(
+                      onPressed: controllerFont.decreaseFontSize_ara,
+                      icon: const Icon(
+                        Icons.remove,
+                        color: color1,
+                      )),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     ),
   );
